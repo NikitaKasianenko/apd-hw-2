@@ -10,4 +10,12 @@ Do not paste secrets or an unreviewed raw transcript.
 
 ## Final review
 
-<!-- Summarize remaining risks and confirm that you inspected the final diff. -->
+- Inspected the final diff against the plan commit (`git diff 4323fb7 HEAD`): changes are limited to
+  `Sources/TaskProcessor/TaskProcessor.swift`, the new `TaskProcessorStudentTests.swift`, `PLAN.md` and this
+  worklog. The starter tests and the public API are unchanged.
+- Remaining risks:
+  - A worker that ignores cancellation keeps running until it returns, and its value is recorded. The contract
+    lists this as a non-goal.
+  - Overlapping `process` calls on one processor instance are not tested; the contract does not grade them.
+  - Retry after caller cancellation: my interpretation is that no new attempt starts and the last ordinary error
+    gives `.failed`. This rule is not stated explicitly in the contract and is recorded in PLAN.md.
