@@ -41,6 +41,7 @@ Complete this before implementation and update it when the plan changes.
 | `CancellationError` is reported as `.failed`. | Test mixing success, ordinary error and `CancellationError` in one call. |
 | Queued jobs still start after the caller cancels. | Test: limit 1, first job blocked, cancel the `process` task; the rest are `.cancelled` and never started. |
 | Retry uses extra slots or retries cancellation. | Bonus tests count attempts per job, check `CancellationError` is tried once, and check the active-job maximum. |
+| A retry starts after the caller cancelled. | Decision: when the caller cancelled, no new attempt is started and the last ordinary error gives `.failed`. |
 | Flaky timing-based tests. | Use `Gate` and probes only, no sleeps or elapsed-time checks. |
 
 Out of scope by contract: workers that ignore cancellation, timeouts, and overlapping
